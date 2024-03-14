@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/styles/menuStyles.css">
+    <title>Seismo-game | Homepage</title>
 </head>
+
 <body>
-    
-    
+    <div class="background-container">
+        <img src="https://cdn.britannica.com/93/207393-050-FF9F3291/Seismic-wave-data-recorded-by-seismograph-during-earthquake.jpg"
+            alt="Close up of a hand pointing at seismograph results" class="background-img">
+        <div class="container">
+            <h1 class="bungee-shade-regular" id="game-title">Seismo-game</h1>
+            <a id="play-btn" class="waves-effect waves-light btn-small blue-grey darken-4"><i
+                    class="material-icons right">play_arrow</i>Play</a>
+            <a id="stats-btn" class="waves-effect waves-light btn-small modal-trigger blue-grey darken-4" href="#modal1"><i
+                    class="material-icons right">timeline</i>Stats</a>
+        </div>
+    </div>
+<!-- This portion is for the modal -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h2 id="game-stats">Game Stats</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam ducimus consequatur molestiae hic
+                laudantium sit. Similique omnis illo commodi debitis minima. Cum molestias quod omnis optio, deleniti
+                quam adipisci esse.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./assets/scripts/menuScript.js"></script>
 </body>
+
 </html>
