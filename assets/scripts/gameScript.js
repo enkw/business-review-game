@@ -89,7 +89,7 @@ function magnitudeGuesser(data, lowHigh){
     }
 }
 
-// Function to generate a random date
+// Function to generate a random date X
 function generateRandomDate() {
     const startDate = new Date(2000, 0, 1); // Start date for random date generation
     const endDate = new Date(); // End date is today's date
