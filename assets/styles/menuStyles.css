@@ -41,3 +41,11 @@
     padding: 8px;
     border: 2px solid black;
 }
+
+#icon {
+    background: url('../images/boxing-glove.png');
+    height: 24px;
+    width: 24px;
+    display: block;
+    margin-top: 4px;
+}
