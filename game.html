@@ -3,30 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Richter Rumble</title>
+    <title>SEISMO-GAME</title>
     <link rel="stylesheet" href="./assets/styles/gameStyles.css" />
 </head>
 <body>
-    <h1>Richter Rumble</h1>
-
-    <div id="earthquake-info">
-        <h2>Earthquake Information</h2>
-        <p id="earthquake-count">Total Earthquakes: </p>
-        <p id="highest-magnitude">Highest Magnitude Earthquake: </p>
-        <p id="lowest-magnitude">Lowest Magnitude Earthquake: </p>
-    </div>
-
-    <div id="user-input">
-        <h2>User Input</h2>
-        <label for="start-date">Start Date:</label>
-        <input type="date" id="start-date">
-        <label for="end-date">End Date:</label>
-        <input type="date" id="end-date">
-        <button id="fetch-data">Fetch Earthquake Data</button>
-    </div>
-
-    <div id="map">
-        <!-- Add a section for displaying the map here -->
+    <div class="container">
+        <div class="date" id="random-date">
+            Date: January 1, 2014
+        </div>
+        <div class="map">
+            Map Placeholder
+        </div>
+        <div class="remaining-guesses">
+            Remaining Guesses: 3
+        </div>
+        <div class="guesses-container">
+            <div class="guess">Guess 1</div>
+            <div class="guess">Guess 2</div>
+            <div class="guess">Guess 3</div>
+            <div class="guess">Guess 4</div>
+        </div>
+        <div class="current-guess">
+            Current Guess: A
+        </div>
+        <div class="buttons">
+            <button>Enter</button>
+            <button>Play Again</button>
+            <button>Stats</button>
+        </div>
     </div>
        
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

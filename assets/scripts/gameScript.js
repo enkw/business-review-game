@@ -89,6 +89,7 @@ function magnitudeGuesser(data, lowHigh){
         alert("You guessed right");
     }
 }
+
 // gives you a random day starting from today back to when you make the start date
 function randomDay(startDate){
     const now = dayjs();
