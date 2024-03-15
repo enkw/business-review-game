@@ -1,5 +1,6 @@
+const rDay = randomDay(0);
 // url to get earthquakes in ascending order of magnitude 
-const url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02&orderby=magnitude";
+const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${rDay[0]}&endtime=${rDay[1]}&orderby=magnitude`;
 
 // fetch request for earthquakes
 fetch(url).then(function (response) {
@@ -28,7 +29,7 @@ function getEarthquakeData(data) {
 
 function gameQuakeAmount(data){
     // temporary javascript alerts and prompts
-    let guess = prompt("Guess how many earthquakes happened on 2014-01-01");
+    let guess = prompt(`Guess how many earthquakes happened on ${rDay[0]}`);
     // checks if you got it right on first try
     if(guess == data[0]){
         alert("Wow! You guessed right on the first try no way!")
@@ -63,9 +64,9 @@ function magnitudeGuesser(data, lowHigh){
     // temporary javascript alerts and prompts
     let guess = "";
     if(selector === 1){
-        guess = prompt("Guess what the highest magnitude earthquake was on 2014-01-01");
+        guess = prompt(`Guess what the highest magnitude earthquake was on ${rDay[0]}`);
     } else {
-        guess = prompt("Guess what the lowest magnitude earthquake was on 2014-01-01");
+        guess = prompt(`Guess what the lowest magnitude earthquake was on ${rDay[0]}`);
     }
     // checks if you got it right on first try
     if(guess == data[selector]){
@@ -89,20 +90,11 @@ function magnitudeGuesser(data, lowHigh){
     }
 }
 
-// Function to generate a random date X
-function generateRandomDate() {
-    const startDate = new Date(2000, 0, 1); // Start date for random date generation
-    const endDate = new Date(); // End date is today's date
-    const randomDate = new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()));
-
-    return randomDate.toDateString(); // Convert the random date to a string
+// gives you a random day starting from today back to when you make the start date
+function randomDay(startDate){
+    const now = dayjs();
+    const subtractBy = now - Number(startDate);
+    const unix = now - Math.floor(Math.random()*subtractBy);
+    return [dayjs(unix).format("YYYY-MM-DD"), dayjs(unix).add(1,'day').format("YYYY-MM-DD")];
 }
-
-// Update the date element with the random date
-document.addEventListener("DOMContentLoaded", function() {
-    const dateElement = document.getElementById("random-date");
-    if (dateElement) {
-        dateElement.textContent = "Date: " + generateRandomDate();
-    }
-});
 
