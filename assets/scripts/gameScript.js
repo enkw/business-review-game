@@ -89,5 +89,20 @@ function magnitudeGuesser(data, lowHigh){
     }
 }
 
+// Function to generate a random date
+function generateRandomDate() {
+    const startDate = new Date(2000, 0, 1); // Start date for random date generation
+    const endDate = new Date(); // End date is today's date
+    const randomDate = new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()));
 
+    return randomDate.toDateString(); // Convert the random date to a string
+}
+
+// Update the date element with the random date
+document.addEventListener("DOMContentLoaded", function() {
+    const dateElement = document.getElementById("random-date");
+    if (dateElement) {
+        dateElement.textContent = "Date: " + generateRandomDate();
+    }
+});
 

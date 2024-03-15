@@ -1,52 +1,34 @@
-/* Game-speciifc styles */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* Set a background color for the container */
+    font-family: 'Arial', sans-serif; /* Change the font family */
+}
 
-/* Styles for the earthquake information section */
-#earthquake-info {
-    background-color: #f9f9f9;
+/* Add styles for the elements inside the container */
+.date, .map, .remaining-guesses, .guesses-container, .current-guess, .buttons {
+    margin: 10px;
+    border: 2px solid #2e343a;
     padding: 10px;
-    border: 1px solid #ccc;
-    margin-top: 20px;
-}
-
-#earthquake-info h2 {
-    color: #333;
-}
-
-#earthquake-info p {
-    margin: 5px 0;
-}
-
-/* Styles for the user input section */
-#user-input {
-    background-color: #f9f9f9;
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-top: 20px;
-}
-
-#user-input h2 {
-    color: #333;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input {
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
+    background-color: #fff; /* Set a background color for the elements */
+    border-radius: 8px; /* Add rounded corners */
 }
 
 button {
-    padding: 5px 10px;
-    background-color: #007bff;
+    padding: 10px 20px;
+    background-color: #2e343a;
     color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s; /* Add a smooth transition on hover */
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #2e343a; /* Change the background color on hover */
+    color: #fff; /* Change text color on hover */
 }
