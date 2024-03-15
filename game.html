@@ -8,14 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <div class="date" id="random-date">
-            Date: January 1, 2014
+        <div class="date">
+            <h1 id="random-date">Date: January 1, 2014</h1>
         </div>
         <div class="map">
             Map Placeholder
         </div>
         <div class="remaining-guesses">
-            Remaining Guesses: 3
+            <h2>Remaining Guesses: <span id="r-guesses">6</span></h2>
         </div>
         <div class="guesses-container">
             <div class="guess">Guess 1</div>
@@ -24,10 +24,13 @@
             <div class="guess">Guess 4</div>
         </div>
         <div class="current-guess">
-            Current Guess: A
+            <p id="message">Give it your best shot</p>
+        </div>
+        <div class="current-guess">
+            <input id="guess" type="text" placeholder="guess">
+            <button id="submit">Enter</button>
         </div>
         <div class="buttons">
-            <button>Enter</button>
             <button>Play Again</button>
             <button>Stats</button>
         </div>
