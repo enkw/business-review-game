@@ -1,16 +1,18 @@
-const rDay = randomDay(0);
+let rDay = 0;
 let guess = "";
 let guesses = 1;
 let win = false;
+let url = "";
+let urlData = [];
+let game = 1;
 
 const sumbitEl = $("#submit");
 const messageEl = $("#message");
 const remainingGuessesEl = $("#r-guesses");
 const randomDateEl = $("#random-date");
 const guessEl = $("#guess");
-
-// url to get earthquakes in ascending order of magnitude
-const url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${rDay[0]}&endtime=${rDay[1]}&orderby=magnitude`;
+const newDayEl = $("#new-day");
+const nextGameEl = $("#next-game");
 
 // gets data for game from fetch'd data
 function getEarthquakeData(data) {
@@ -24,58 +26,82 @@ function getEarthquakeData(data) {
   // returns array with game data
   return dataArray;
 }
+// processes an incorrect guess
+function guessWrong(){
+  remainingGuessesEl.text(6 - guesses);
+  guesses++;
+  guessEl.text("");
+}
+// resets when you guess correct
+function guessCorrect(storage){
+  remainingGuessesEl.text(6 - guesses);
+  win = true;
+  storeData(storage);
+  guessEl.text("");
+  sumbitEl.off("click");
+}
+// displays your previous guess and some additional hints
+function createGuessEl(img){
+  const divEl = $("<div>").addClass("guess");
+  const textEl = $("<h4>");
+  const imgEl = $("<img>");
+  textEl.text(guess);
+  imgEl.attr("src", img);
+  divEl.append(textEl, imgEl);
+  $("#guess-container").append(divEl);
+}
+
+function clearGuessEl(){
+  $("div").remove(".guess");
+}
 
 function gameQuakeAmount(data) {
   const storageArray = readFromLocalStorage("amount");
-
-  guess = guessEl.val();
-  if (guess == data[0] && guesses === 1) {
+  guess = Number(guessEl.val());
+  messageEl.text("Guess how many earquakes happened on the date above.");
+  const dataNumber = data[0] || 0;
+  if (guess == dataNumber && guesses === 1) {
     // checks if you got it right on first try
     messageEl.text("Wow! You guessed right on the first try no way!");
-    remainingGuessesEl.text(6 - guesses);
-    win = true;
-    storeData(storageArray);
-  } else if (guess == data[0]) {
+    createGuessEl("#");
+    guessCorrect(storageArray);
+  } else if (guess == dataNumber) {
     // checks if you won
     messageEl.text("You did it!");
-    remainingGuessesEl.text(6 - guesses);
-    win = true;
-    storeData(storageArray);
-  } else if (guess != data[0] && guesses < 6) {
+    createGuessEl("#");
+    guessCorrect(storageArray);
+  } else if (guess != dataNumber && guesses < 6) {
     // checks if your guess was higher or lower
-    console.log(data[0]);
-    if (guess < data[0]) {
+    console.log(dataNumber);
+    if (guess < dataNumber) {
       // checks if its lower
       messageEl.text("There were more this day.");
-      remainingGuessesEl.text(6 - guesses);
-      guesses++;
-    } else if (guess > data[0]) {
+      createGuessEl("#");
+      guessWrong();
+    } else if (guess > dataNumber) {
       // checks if its higher
       messageEl.text("There were less this day.");
-      remainingGuessesEl.text(6 - guesses);
-      guesses++;
+      createGuessEl("#");
+      guessWrong();
     } else {
       // checks if you put in a number
       messageEl.text("Please give me a number");
+      guessEl.text("");
     }
   } else if (guesses === 6) {
     // checks if you lost
     messageEl.text("Better luck next time");
     remainingGuessesEl.text(6 - guesses);
     storeData(storageArray);
+    guessEl.text("");
+    sumbitEl.off("click");
   }
 }
 // gives you either the highest or lowest magnitude
 function magnitudeGuesser(data, lowHigh) {
   const storageArray = readFromLocalStorage(lowHigh);
-  // What is being stored in local storage
-  const singleGame = {
-    tries: 0,
-    day: 0,
-    winLoss: false,
-  };
-  let guesses = 0;
-  let win = false;
+  guess = Number(guessEl.val());
+  messageEl.text(`Guess what the ${lowHigh}est magnitude earquake was on this day`);
   // chooses weather it will be high or low
   let selector = 0;
   if (lowHigh === "low") {
@@ -83,57 +109,68 @@ function magnitudeGuesser(data, lowHigh) {
   } else {
     selector = 1;
   }
-  // temporary javascript alerts and prompts
-  let guess = "";
-  if (selector === 1) {
-    guess = prompt(
-      `Guess what the highest magnitude earthquake was on ${rDay[0]}`
-    );
-  } else {
-    guess = prompt(
-      `Guess what the lowest magnitude earthquake was on ${rDay[0]}`
-    );
-  }
-  // checks if you got it right on first try
-  if (guess == data[selector]) {
-    alert("Wow! You guessed right on the first try no way!");
-    guesses++;
-  } else {
-    // has you keep guessing until you get it right
-    while (guess != data[selector] && guesses != 5) {
-      console.log(data[selector]);
-      if (guess < data[selector]) {
-        alert("It was a higher magnitude");
-        guesses++;
-        alert(`${guesses}/6`);
-        guess = prompt("Guess again");
-      } else if (guess > data[selector]) {
-        alert("It was a lower magnitude");
-        guesses++;
-        alert(`${guesses}/6`);
-        guess = prompt("Guess again");
-      } else {
-        alert("Please put in a number");
-        guess = prompt("guess again");
-      }
-    }
-    if (guess == data[0]) {
-      alert("You guessed right");
-      win = true;
-      console.log(guesses);
+  // checks if the data if null and changes it to 0
+  const dataNumber = data[selector] || 0;
+  if (guess == dataNumber && guesses === 1) {
+    // checks if you got it right on first try
+    messageEl.text("Wow! You guessed right on the first try no way!");
+    createGuessEl("#");
+    guessCorrect(storageArray);
+  } else if (guess == dataNumber) {
+    // checks if you won
+    messageEl.text("You did it!");
+    createGuessEl("#");
+    guessCorrect(storageArray);
+  } else if (guess != dataNumber && guesses < 6) {
+    // checks if your guess was higher or lower
+    console.log(dataNumber);
+    if (guess < dataNumber) {
+      // checks if its lower
+      messageEl.text("It was a higher magnitude this day.");
+      createGuessEl("#");
+      guessWrong();
+    } else if (guess > dataNumber) {
+      // checks if its higher
+      messageEl.text("It was a lower magnitude this day.");
+      createGuessEl("#");
+      guessWrong();
     } else {
-      alert("Better luck next time");
-      console.log(guesses);
+      // checks if you put in a number
+      messageEl.text("Please give me a number");
+      guessEl.text("");
     }
+  } else if (guesses === 6) {
+    // checks if you lost
+    messageEl.text("Better luck next time");
+    remainingGuessesEl.text(6 - guesses);
+    storeData(storageArray);
+    guessEl.text("");
+    sumbitEl.off("click");
   }
-
-  singleGame.tries = guesses;
-  singleGame.day = dayjs();
-  singleGame.winLoss = win;
-  storageArray.push(singleGame);
-  storeInLocalStorage(storageArray, lowHigh);
+}
+// creates event handler for game being played
+function gamePlaying(){
+  if(game === 1){
+    startGame();
+    messageEl.text("Guess how many earquakes happened on the date above.");
+  } else if(game === 2){
+    sumbitEl.on("click", function () {
+      magnitudeGuesser(getEarthquakeData(urlData), "high");
+    });
+    messageEl.text("Guess what the highest magnitude earthquake was on the date above");
+  } else if(game === 3){
+    sumbitEl.on("click", function () {
+      magnitudeGuesser(getEarthquakeData(urlData), "low");
+    });
+    messageEl.text("Guess what the lowest magnitude earthquake was on the date above");
+    
+  } else {
+    console.log("error");
+  }
 }
 
+
+// stores array in local storage
 function storeData(array) {
   const singleGame = {
     tries: guesses,
@@ -160,7 +197,7 @@ function randomDay(startDate) {
 function storeInLocalStorage(game, type) {
   localStorage.setItem(type, JSON.stringify(game));
 }
-// Reads data from local storage
+// Reads data from local storage and creates one if there isnt one there already
 function readFromLocalStorage(type) {
   let gameData = JSON.parse(localStorage.getItem(type));
   if (!gameData) {
@@ -169,21 +206,62 @@ function readFromLocalStorage(type) {
   return gameData;
 }
 
-function init() {
+function startGame() {
+  rDay = randomDay(0);
   randomDateEl.text(rDay[0]);
+  url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${rDay[0]}&endtime=${rDay[1]}&orderby=magnitude`;
   fetch(url).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
         console.log(data);
-        // gameQuakeAmount(getEarthquakeData(data));
-        //magnitudeGuesser(getEarthquakeData(data), "high");
-        //magnitudeGuesser(getEarthquakeData(data), "low");
-        sumbitEl.on("click", function () {
-          gameQuakeAmount(getEarthquakeData(data));
-        });
+        urlData = data;
       });
     }
   });
+  sumbitEl.on("click", function () {
+    gameQuakeAmount(getEarthquakeData(urlData));
+  });
+}
+
+function init(){
+  startGame();
+  newDayEl.on("click", newDate);
+  nextGameEl.on("click", nextGame);
+}
+
+function newDate(){
+  sumbitEl.off("click");
+  clearGuessEl();
+  rDay = randomDay(0);
+  randomDateEl.text(rDay[0]);
+  guesses = 1;
+  remainingGuessesEl.text(6);
+  guessEl.text("");
+  url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${rDay[0]}&endtime=${rDay[1]}&orderby=magnitude`;
+  fetch(url).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        console.log(data);
+        urlData = data;
+      });
+    }
+  });
+  gamePlaying();
+}
+
+function nextGame(){
+  sumbitEl.off("click");
+  if(game < 3){
+    game++;
+  } else {
+    game = 1;
+  }
+  clearGuessEl();
+  guesses = 1;
+  remainingGuessesEl.text(6);
+  guessEl.text("");
+  gamePlaying();
 }
 
 init();
+
