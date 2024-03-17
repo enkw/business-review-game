@@ -23,6 +23,10 @@ function getEarthquakeData(data) {
   dataArray.push(data.features[0].properties.mag);
   // gets lowest magnitude earthquake
   dataArray.push(data.features[data.features.length - 1].properties.mag);
+  // gets highest magnitude earquake long lat
+  dataArray.push(data.features[0].geometry.coordinates);
+  // gets lowest magnitude earthquake long lat
+  dataArray.push(data.features[data.features.length - 1].geometry.coordinates);
   // returns array with game data
   return dataArray;
 }
@@ -50,10 +54,21 @@ function createGuessEl(img){
   divEl.append(textEl, imgEl);
   $("#guess-container").append(divEl);
 }
-// 
+// clears guess elements
 function clearGuessEl(){
   $("div").remove(".guess");
 }
+// api key
+const apiToken = prompt("ApiKey please");
+// creates map 
+function createMapEl(long, lat){
+  $("#map-box").attr("src",`https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/pin-l-embassy+f74e4e(${long},${lat})/${long},${lat},3/500x300?access_token=${apiToken}`);
+}
+// changes to placeholder image
+function deleteMapEl(){
+  $("#map-box").attr("src","#")
+}
+
 // first game for guessing how many 
 function gameQuakeAmount(data) {
   const storageArray = readFromLocalStorage("amount");
@@ -144,10 +159,13 @@ function magnitudeGuesser(data, lowHigh) {
   messageEl.text(`Guess what the ${lowHigh}est magnitude earquake was on this day`);
   // chooses weather it will be high or low
   let selector = 0;
+  let mapSelector = 0;
   if (lowHigh === "low") {
     selector = 2;
+    mapSelector = 4;
   } else {
     selector = 1;
+    mapSelector = 3;
   }
   // checks if the data if null and changes it to 0 and rounds it to one decimal place
   let dataNumber = data[selector] || 0;
@@ -234,17 +252,19 @@ function gamePlaying(){
   if(game === 1){
     startGame();
     messageEl.text("Guess how many earquakes happened on the date above.");
+    deleteMapEl();
   } else if(game === 2){
     sumbitEl.on("click", function () {
       magnitudeGuesser(getEarthquakeData(urlData), "high");
     });
     messageEl.text("Guess what the highest magnitude earthquake was on the date above");
+    createMapEl(getEarthquakeData(urlData)[3][0],getEarthquakeData(urlData)[3][1]);
   } else if(game === 3){
     sumbitEl.on("click", function () {
       magnitudeGuesser(getEarthquakeData(urlData), "low");
     });
     messageEl.text("Guess what the lowest magnitude earthquake was on the date above");
-    
+    createMapEl(getEarthquakeData(urlData)[4][0],getEarthquakeData(urlData)[4][1]);
   } else {
     console.log("error");
   }
