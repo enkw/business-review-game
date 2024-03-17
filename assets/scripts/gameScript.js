@@ -50,11 +50,11 @@ function createGuessEl(img){
   divEl.append(textEl, imgEl);
   $("#guess-container").append(divEl);
 }
-
+// 
 function clearGuessEl(){
   $("div").remove(".guess");
 }
-
+// first game for guessing how many 
 function gameQuakeAmount(data) {
   const storageArray = readFromLocalStorage("amount");
   guess = Number(guessEl.val());
@@ -67,20 +67,60 @@ function gameQuakeAmount(data) {
     guessCorrect(storageArray);
   } else if (guess == dataNumber) {
     // checks if you won
-    messageEl.text("You did it!");
+    messageEl.text("You guessed correctly!");
     createGuessEl("#");
     guessCorrect(storageArray);
   } else if (guess != dataNumber && guesses < 6) {
     // checks if your guess was higher or lower
     console.log(dataNumber);
-    if (guess < dataNumber) {
-      // checks if its lower
-      messageEl.text("There were more this day.");
+    if (guess < dataNumber && guess+3 >= dataNumber) {
+      // checks if its slightly lower
+      messageEl.text("Slighly more.");
       createGuessEl("#");
       guessWrong();
-    } else if (guess > dataNumber) {
+    } else if(guess < dataNumber && guess+10 >=dataNumber){
+      // checks if its lower
+      messageEl.text("More.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess < dataNumber && guess+50 >=dataNumber){
+      // checks if its way lower
+      messageEl.text("A lot more.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess < dataNumber && guess+100 >=dataNumber){
+      // checks if its much much lower
+      messageEl.text("Way Way more.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess < dataNumber){
+      // checks if you are way off
+      messageEl.text("You are way off try a lot higher.");
+      createGuessEl("#");
+      guessWrong();
+    } else if (guess > dataNumber && guess-3 <= dataNumber) {
+      // checks if its slightly higher
+      messageEl.text("Slightly less.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess > dataNumber && guess-10 <= dataNumber){
       // checks if its higher
-      messageEl.text("There were less this day.");
+      messageEl.text("Less.")
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess > dataNumber && guess-50 <= dataNumber){
+      // checks if its way higher
+      messageEl.text("A lot less.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess > dataNumber && guess-100 <= dataNumber){
+      // checks if its much much higher
+      messageEl.text("Way Way less.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess > dataNumber){
+      // checks if you are way off
+      messageEl.text("You are way off try a lot less.");
       createGuessEl("#");
       guessWrong();
     } else {
@@ -109,8 +149,9 @@ function magnitudeGuesser(data, lowHigh) {
   } else {
     selector = 1;
   }
-  // checks if the data if null and changes it to 0
-  const dataNumber = data[selector] || 0;
+  // checks if the data if null and changes it to 0 and rounds it to one decimal place
+  let dataNumber = data[selector] || 0;
+  dataNumber = Math.round(dataNumber*10)/10;
   if (guess == dataNumber && guesses === 1) {
     // checks if you got it right on first try
     messageEl.text("Wow! You guessed right on the first try no way!");
@@ -124,14 +165,54 @@ function magnitudeGuesser(data, lowHigh) {
   } else if (guess != dataNumber && guesses < 6) {
     // checks if your guess was higher or lower
     console.log(dataNumber);
-    if (guess < dataNumber) {
-      // checks if its lower
-      messageEl.text("It was a higher magnitude this day.");
+    if (guess < dataNumber && guess+0.3 >= dataNumber) {
+      // checks if its slightly lower
+      messageEl.text("Slighly more.");
       createGuessEl("#");
       guessWrong();
-    } else if (guess > dataNumber) {
+    } else if(guess < dataNumber && guess+1 >=dataNumber){
+      // checks if its lower
+      messageEl.text("More.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess < dataNumber && guess+2.5 >=dataNumber){
+      // checks if its way lower
+      messageEl.text("A lot more.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess < dataNumber && guess+5 >=dataNumber){
+      // checks if its much much lower
+      messageEl.text("Way Way more.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess < dataNumber){
+      // checks if you are way off
+      messageEl.text("You are way off try a lot higher.");
+      createGuessEl("#");
+      guessWrong();
+    } else if (guess > dataNumber && guess-0.3 <= dataNumber) {
+      // checks if its slightly higher
+      messageEl.text("Slightly less.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess > dataNumber && guess-1 <= dataNumber){
       // checks if its higher
-      messageEl.text("It was a lower magnitude this day.");
+      messageEl.text("Less.")
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess > dataNumber && guess-2.5 <= dataNumber){
+      // checks if its way higher
+      messageEl.text("A lot less.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess > dataNumber && guess-5 <= dataNumber){
+      // checks if its much much higher
+      messageEl.text("Way Way less.");
+      createGuessEl("#");
+      guessWrong();
+    } else if(guess > dataNumber){
+      // checks if you are way off
+      messageEl.text("You are way off try a lot less.");
       createGuessEl("#");
       guessWrong();
     } else {
