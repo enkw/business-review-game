@@ -59,7 +59,7 @@ function clearGuessEl(){
   $("div").remove(".guess");
 }
 // api key
-const apiToken = ""
+const apiToken = prompt("ApiKey please");
 // creates map 
 function createMapEl(long, lat){
   $("#map-box").attr("src",`https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/pin-l-embassy+f74e4e(${long},${lat})/${long},${lat},3/500x300?access_token=${apiToken}`);
