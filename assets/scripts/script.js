@@ -10,9 +10,7 @@ modalTrigger.forEach(trigger => {
         let stats = getModalStats();
         // Updates the modal content with the updated stats
         updateStats(stats);
-
         let instance = M.Modal.getInstance(trigger.getAttribute('href'));
-        instance.open();
     });
 });
 
@@ -80,7 +78,7 @@ function getModalStats() {
     return stats;
 }
 
-const localArray = JSON.parse(localStorage.getItem("amount"));
+const localArray = JSON.parse(localStorage.getItem("high"));
 console.log(localArray);
 
 // Call getStats initially to set up the stats
