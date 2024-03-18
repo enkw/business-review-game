@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./assets/styles/menuStyles.css">
+    <link rel="stylesheet" href="./assets/styles/style.css">
     <title>Richter Rumble | Homepage</title>
 </head>
 
@@ -21,24 +22,54 @@
             <h1 class="bungee-shade-regular" id="game-title">Richter Rumble</h1>
             <a id="play-btn" class="waves-effect waves-light btn-small blue-grey darken-4"><i
                     class="material-icons right" id="icon"></i>Play</a>
-            <a id="stats-btn" class="waves-effect waves-light btn-small modal-trigger blue-grey darken-4" href="#modal1"><i
-                    class="material-icons right">timeline</i>Stats</a>
+            <a id="stats-btn" class="waves-effect waves-light btn-small modal-trigger blue-grey darken-4"
+                href="#modal1"><i class="material-icons right">timeline</i>Stats</a>
         </div>
     </div>
-<!-- This portion is for the modal -->
+    <!-- This portion is for the modal -->
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <h2 id="game-stats">Game Stats</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam ducimus consequatur molestiae hic
-                laudantium sit. Similique omnis illo commodi debitis minima. Cum molestias quod omnis optio, deleniti
-                quam adipisci esse.</p>
+            <!-- This portion is for the progress bars and the info inside -->
+                <div id="modded" class="row">
+                <div class="col s12">
+                    <h5>Game Statistics</h5>
+                    <p>Click either section for more details!</p>
+                    <ul class="collapsible" style="">
+                        <li>
+                            <div class="collapsible-header">
+                                
+                                <div class="progress blue-grey lighten-4" id="total-wins">
+                                    <span>Overall Wins<i class="material-icons">info_outline</i></span>
+                                    <div class="determinate blue-grey" style="width: 0%; animation: grow 2s;">0%</div>
+                                </div>
+                
+                            </div>
+                            <div class="collapsible-body" id="total-wins-expand">Wins: 0<br>Guesses: 0</div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">
+                                
+                                <div class="progress blue-grey lighten-4" id="daily-wins">
+                                    <span>Daily Wins<i class="material-icons">info_outline</i></span>
+                                    <div class="determinate blue-grey" style="width: 0%; animation: grow 2s;">0%</div>
+                                </div>
+                
+                            </div>
+                            <div class="collapsible-body" id="daily-wins-expand">Wins: 0<br>Guesses: 0<br></div>
+                        </li>
+                    </ul>
+                </div>
+                </div>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./assets/scripts/script.js"></script>
     <script src="./assets/scripts/menuScript.js"></script>
 </body>
 

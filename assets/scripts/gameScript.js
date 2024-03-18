@@ -290,8 +290,8 @@ function randomDay(startDate) {
   const subtractBy = now - Number(startDate);
   const unix = now - Math.floor(Math.random() * subtractBy);
   return [
-    dayjs(unix).format("YYYY-MM-DD"),
-    dayjs(unix).add(1, "day").format("YYYY-MM-DD"),
+    dayjs(unix).format("MM/DD/YYYY"),
+    dayjs(unix).add(1, "day").format("MM/DD/YYYY"),
   ];
 }
 // Stores data in local storage

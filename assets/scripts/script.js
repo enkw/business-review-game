@@ -1,3 +1,34 @@
+// These variables specifically initialize the modal
+let elems = document.querySelectorAll('.modal');
+let instances = M.Modal.init(elems, {});
+
+// This portion makes the progress bars expandable and loads the stats
+$(document).ready(function(){
+	$('.tooltipped').tooltip();
+	$('.collapsible').collapsible();
+
+    const winPEl = `<span>Daily Wins<i class="material-icons">info_outline</i></span>
+    <div class="determinate blue" style="width: ${stats.winP}; animation: grow 2s;">${stats.winP}</div>`;
+    const winPExEl = `Wins: ${stats.wins}<br>Guesses: ${stats.guesses}<br>`;
+    
+    const winPTEl = `<span>Daily Wins<i class="material-icons">info_outline</i></span>
+    <div class="determinate blue" style="width: ${stats.winPT}; animation: grow 2s;">${stats.winPT}</div>`;
+    const winPTExEl = `Wins: ${stats.winsT}<br>Guesses: ${stats.guessesT}<br>`;
+
+    $('#total-wins').html(winPEl);
+    $('#total-wins-expand').html(winPExEl);
+    $('#daily-wins').html(winPTEl);
+    $('#daily-wins-expand').html(winPTExEl);
+});
+
+// This handles opening the modal for stats
+let modalTrigger = document.querySelectorAll('.modal-trigger');
+modalTrigger.forEach(trigger => {
+    trigger.addEventListener('click', function() {
+        let instance = M.Modal.getInstance(trigger.getAttribute('href'));
+    });
+});
+
 function getStats(type){
     const localArray = JSON.parse(localStorage.getItem(type));
     let guessesTotal = 0;
