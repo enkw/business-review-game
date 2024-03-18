@@ -50,7 +50,7 @@ function createGuessEl(img){
   const textEl = $("<h6>");
   const imgEl = $("<img>");
   textEl.text(guess);
-  imgEl.attr(`src`, img);
+  imgEl.attr("src", img);
   divEl.append(textEl, imgEl);
   $("#guess-container").append(divEl);
 }
