@@ -19,8 +19,36 @@
     background-color: rgba(227, 242, 234, 0.5);
 }
 
+.guess {
+    display: flex;
+    align-items: center;
+}
+
+.guess div {
+    display: inline-block;
+    align-items: center;
+}
+
+#guess-container h6 {
+    margin: 0;
+}
+
+#guess-container img {
+    max-width: 50px;
+    height: auto;
+    margin-left: 30px;
+}
+
+
+
+
 /* Add styles for the elements inside the container */
-.date, .map, .remaining-guesses, .guesses-container, .current-guess, .buttons {
+.date,
+.map,
+.remaining-guesses,
+.guesses-container,
+.current-guess,
+.buttons {
     margin: 10px;
     border: 2px solid #2e343a;
     padding: 10px;
@@ -37,11 +65,14 @@ button {
     border-radius: 5px;
     cursor: pointer;
     margin: 5px;
-    transition: background-color 0.3s; /* Add a smooth transition on hover */
+    transition: background-color 0.3s;
+    /* Add a smooth transition on hover */
     z-index: 1;
 }
 
 button:hover {
-    background-color: #2e343a; /* Change the background color on hover */
-    color: #fff; /* Change text color on hover */
+    background-color: #2e343a;
+    /* Change the background color on hover */
+    color: #fff;
+    /* Change text color on hover */
 }
