@@ -76,11 +76,32 @@ function clearGuessEl(){
 const apiToken = prompt("ApiKey please");
 // creates map 
 function createMapEl(long, lat){
-  $("#map-box").attr("src",`https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/pin-l-embassy+f74e4e(${long},${lat})/${long},${lat},3/500x300?access_token=${apiToken}`);
+  $("#map-box").attr("src",`https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/pin-l(${long},${lat})/${long},${lat},3/500x300?access_token=${apiToken}`);
 }
-// changes to placeholder image
-function deleteMapEl(){
-  $("#map-box").attr("src","#")
+
+// creates a string for the request of pins on the map
+function createLongLatString(){
+  let longLatString = "";
+  let pinAmount = 0;
+  if(urlData.features.length > 250){
+    pinAmount = 250;
+  } else {
+    pinAmount = urlData.features.length;
+  }
+  for(let i = 0; i < pinAmount; i++){
+    const long = urlData.features[i].geometry.coordinates[0];
+    const lat = urlData.features[i].geometry.coordinates[1];
+    longLatString = longLatString.concat(`pin-l(${long},${lat}),`);
+  }
+  longLatString = longLatString.substring(0, longLatString.length-1);
+  console.log(longLatString);
+  return longLatString;
+}
+
+// creates a map with a lot of markers for earquakes
+function createMapOneEl(){
+  const longLatString = createLongLatString();
+  $("#map-box").attr("src", `https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/${longLatString}/0,0,0/500x300?access_token=${apiToken}`);
 }
 
 // first game for guessing how many 
@@ -268,7 +289,6 @@ function gamePlaying(){
   if(game === 1){
     startGame();
     messageEl.text("Guess how many earquakes happened on the date above.");
-    deleteMapEl();
   } else if(game === 2){
     sumbitEl.on("click", function () {
       magnitudeGuesser(getEarthquakeData(urlData), "high");
@@ -331,6 +351,7 @@ function startGame() {
       response.json().then(function (data) {
         console.log(data);
         urlData = data;
+        createMapOneEl();
       });
     }
   });
