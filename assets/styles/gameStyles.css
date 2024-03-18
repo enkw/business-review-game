@@ -1,11 +1,22 @@
 .container {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #f0f0f0; /* Set a background color for the container */
-    font-family: 'Arial', sans-serif; /* Change the font family */
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    border-style: solid;
+    border-radius: 8px;
+    border-color: #2e343a;
+    max-width: 65%;
+    max-height: auto;
+    background-color: #e3f2ea;
+}
+
+#opacity {
+    background-color: rgba(227, 242, 234, 0.5);
 }
 
 /* Add styles for the elements inside the container */
@@ -13,8 +24,9 @@
     margin: 10px;
     border: 2px solid #2e343a;
     padding: 10px;
-    background-color: #fff; /* Set a background color for the elements */
-    border-radius: 8px; /* Add rounded corners */
+    background-color: #e3f2ea;
+    border-radius: 8px;
+    z-index: 1;
 }
 
 button {
@@ -26,6 +38,7 @@ button {
     cursor: pointer;
     margin: 5px;
     transition: background-color 0.3s; /* Add a smooth transition on hover */
+    z-index: 1;
 }
 
 button:hover {

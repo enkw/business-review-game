@@ -47,13 +47,27 @@ function guessCorrect(storage){
 // displays your previous guess and some additional hints
 function createGuessEl(img){
   const divEl = $("<div>").addClass("guess");
-  const textEl = $("<h4>");
+  const textEl = $("<h6>");
   const imgEl = $("<img>");
   textEl.text(guess);
   imgEl.attr("src", img);
   divEl.append(textEl, imgEl);
   $("#guess-container").append(divEl);
 }
+
+// Variables for the different icons for the hints, trying to figure out how to inject this
+// const up1El = `../images/green-arrow-up.png`;
+// const up2El = `../images/yellow-arrow-up.png`;
+// const up3El = `../images/orange-arrow-up.png`;
+// const up4El = `../images/red-arrow-up.png`;
+// const up5El = `../images/red-x.png`;
+// const down1El = `../images/green-arrow-down.png`;
+// const down2El = `../images/yellow-arrow-down.png`;
+// const down3El = `../images/orange-arrow-down.png`;
+// const down4El = `../images/red-arrow-down.png`;
+// const down5El = `../images/red-x.png`;
+// const correctEl = `../images/green-check.png`;
+
 // clears guess elements
 function clearGuessEl(){
   $("div").remove(".guess");
@@ -73,70 +87,70 @@ function deleteMapEl(){
 function gameQuakeAmount(data) {
   const storageArray = readFromLocalStorage("amount");
   guess = Number(guessEl.val());
-  messageEl.text("Guess how many earquakes happened on the date above.");
+  messageEl.text("Guess how many earthquakes happened on the date above.");
   const dataNumber = data[0] || 0;
   if (guess == dataNumber && guesses === 1) {
-    // checks if you got it right on first try
+    // checks if you got it right on the first try
     messageEl.text("Wow! You guessed right on the first try no way!");
-    createGuessEl("#");
+    createGuessEl("./assets/images/green-check.png");
     guessCorrect(storageArray);
   } else if (guess == dataNumber) {
     // checks if you won
     messageEl.text("You guessed correctly!");
-    createGuessEl("#");
+    createGuessEl("./assets/images/green-check.png");
     guessCorrect(storageArray);
   } else if (guess != dataNumber && guesses < 6) {
     // checks if your guess was higher or lower
     console.log(dataNumber);
     if (guess < dataNumber && guess+3 >= dataNumber) {
-      // checks if its slightly lower
-      messageEl.text("Slighly more.");
-      createGuessEl("#");
+      // checks if it's slightly lower
+      messageEl.text("Slightly more.");
+      createGuessEl("./assets/images/green-arrow-up.png");
       guessWrong();
     } else if(guess < dataNumber && guess+10 >=dataNumber){
-      // checks if its lower
+      // checks if it's lower
       messageEl.text("More.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/yellow-arrow-up.png");
       guessWrong();
     } else if(guess < dataNumber && guess+50 >=dataNumber){
-      // checks if its way lower
+      // checks if it's way lower
       messageEl.text("A lot more.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/orange-arrow-up.png");
       guessWrong();
     } else if(guess < dataNumber && guess+100 >=dataNumber){
-      // checks if its much much lower
+      // checks if it's much much lower
       messageEl.text("Way Way more.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/red-arrow-up.png");
       guessWrong();
     } else if(guess < dataNumber){
       // checks if you are way off
       messageEl.text("You are way off try a lot higher.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/red-x.png");
       guessWrong();
     } else if (guess > dataNumber && guess-3 <= dataNumber) {
-      // checks if its slightly higher
+      // checks if it's slightly higher
       messageEl.text("Slightly less.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/green-arrow-down.png");
       guessWrong();
     } else if(guess > dataNumber && guess-10 <= dataNumber){
-      // checks if its higher
+      // checks if it's higher
       messageEl.text("Less.")
-      createGuessEl("#");
+      createGuessEl("./assets/images/yellow-arrow-down.png");
       guessWrong();
     } else if(guess > dataNumber && guess-50 <= dataNumber){
-      // checks if its way higher
+      // checks if it's way higher
       messageEl.text("A lot less.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/orange-arrow-down.png");
       guessWrong();
     } else if(guess > dataNumber && guess-100 <= dataNumber){
-      // checks if its much much higher
+      // checks if it's much much higher
       messageEl.text("Way Way less.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/red-arrow-down.png");
       guessWrong();
     } else if(guess > dataNumber){
       // checks if you are way off
       messageEl.text("You are way off try a lot less.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/red-x.png");
       guessWrong();
     } else {
       // checks if you put in a number
@@ -150,8 +164,10 @@ function gameQuakeAmount(data) {
     storeData(storageArray);
     guessEl.text("");
     sumbitEl.off("click");
+    createGuessEl("./assets/images/red-x.png");
   }
 }
+
 // gives you either the highest or lowest magnitude
 function magnitudeGuesser(data, lowHigh) {
   const storageArray = readFromLocalStorage(lowHigh);
@@ -173,12 +189,12 @@ function magnitudeGuesser(data, lowHigh) {
   if (guess == dataNumber && guesses === 1) {
     // checks if you got it right on first try
     messageEl.text("Wow! You guessed right on the first try no way!");
-    createGuessEl("#");
+    createGuessEl("./assets/images/green-check.png");
     guessCorrect(storageArray);
   } else if (guess == dataNumber) {
     // checks if you won
     messageEl.text("You did it!");
-    createGuessEl("#");
+    createGuessEl("./assets/images/green-check.png");
     guessCorrect(storageArray);
   } else if (guess != dataNumber && guesses < 6) {
     // checks if your guess was higher or lower
@@ -186,52 +202,52 @@ function magnitudeGuesser(data, lowHigh) {
     if (guess < dataNumber && guess+0.3 >= dataNumber) {
       // checks if its slightly lower
       messageEl.text("Slighly more.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/green-arrow-up.png");
       guessWrong();
     } else if(guess < dataNumber && guess+1 >=dataNumber){
       // checks if its lower
       messageEl.text("More.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/yellow-arrow-up.png");
       guessWrong();
     } else if(guess < dataNumber && guess+2.5 >=dataNumber){
       // checks if its way lower
       messageEl.text("A lot more.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/orange-arrow-up.png");
       guessWrong();
     } else if(guess < dataNumber && guess+5 >=dataNumber){
       // checks if its much much lower
       messageEl.text("Way Way more.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/red-arrow-up.png#");
       guessWrong();
     } else if(guess < dataNumber){
       // checks if you are way off
       messageEl.text("You are way off try a lot higher.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/red-x.png#");
       guessWrong();
     } else if (guess > dataNumber && guess-0.3 <= dataNumber) {
       // checks if its slightly higher
       messageEl.text("Slightly less.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/green-arrow-down.png");
       guessWrong();
     } else if(guess > dataNumber && guess-1 <= dataNumber){
       // checks if its higher
       messageEl.text("Less.")
-      createGuessEl("#");
+      createGuessEl("./assets/images/yellow-arrow-down.png");
       guessWrong();
     } else if(guess > dataNumber && guess-2.5 <= dataNumber){
       // checks if its way higher
       messageEl.text("A lot less.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/orange-arrow-down.png");
       guessWrong();
     } else if(guess > dataNumber && guess-5 <= dataNumber){
       // checks if its much much higher
       messageEl.text("Way Way less.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/red-arrow-down.png");
       guessWrong();
     } else if(guess > dataNumber){
       // checks if you are way off
       messageEl.text("You are way off try a lot less.");
-      createGuessEl("#");
+      createGuessEl("./assets/images/red-x.png");
       guessWrong();
     } else {
       // checks if you put in a number
@@ -270,7 +286,6 @@ function gamePlaying(){
   }
 }
 
-
 // stores array in local storage
 function storeData(array) {
   const singleGame = {
@@ -290,8 +305,8 @@ function randomDay(startDate) {
   const subtractBy = now - Number(startDate);
   const unix = now - Math.floor(Math.random() * subtractBy);
   return [
-    dayjs(unix).format("YYYY-MM-DD"),
-    dayjs(unix).add(1, "day").format("YYYY-MM-DD"),
+    dayjs(unix).format("MM/DD/YYYY"),
+    dayjs(unix).add(1, "day").format("MM/DD/YYYY"),
   ];
 }
 // Stores data in local storage
