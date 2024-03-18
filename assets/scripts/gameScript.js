@@ -94,7 +94,6 @@ function createLongLatString(){
     longLatString = longLatString.concat(`pin-l(${long},${lat}),`);
   }
   longLatString = longLatString.substring(0, longLatString.length-1);
-  console.log(longLatString);
   return longLatString;
 }
 
@@ -191,7 +190,7 @@ function gameQuakeAmount(data) {
 
 // gives you either the highest or lowest magnitude
 function magnitudeGuesser(data, lowHigh) {
-  const storageArray = readFromLocalStorage(lowHigh);
+  const storageArray = readFromLocalStorage("amount");
   guess = Number(guessEl.val());
   messageEl.text(`Guess what the ${lowHigh}est magnitude earquake was on this day`);
   // chooses weather it will be high or low
