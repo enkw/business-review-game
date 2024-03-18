@@ -47,13 +47,27 @@ function guessCorrect(storage){
 // displays your previous guess and some additional hints
 function createGuessEl(img){
   const divEl = $("<div>").addClass("guess");
-  const textEl = $("<h4>");
+  const textEl = $("<h6>");
   const imgEl = $("<img>");
   textEl.text(guess);
-  imgEl.attr("src", img);
+  imgEl.attr(`src`, img);
   divEl.append(textEl, imgEl);
   $("#guess-container").append(divEl);
 }
+
+// Variables for the different icons for the hints, trying to figure out how to inject this
+// const up1El = `../images/green-arrow-up.png`;
+// const up2El = `../images/yellow-arrow-up.png`;
+// const up3El = `../images/orange-arrow-up.png`;
+// const up4El = `../images/red-arrow-up.png`;
+// const up5El = `../images/red-x.png`;
+// const down1El = `../images/green-arrow-down.png`;
+// const down2El = `../images/yellow-arrow-down.png`;
+// const down3El = `../images/orange-arrow-down.png`;
+// const down4El = `../images/red-arrow-down.png`;
+// const down5El = `../images/red-x.png`;
+// const correctEl = `../images/green-check.png`;
+
 // clears guess elements
 function clearGuessEl(){
   $("div").remove(".guess");
@@ -269,7 +283,6 @@ function gamePlaying(){
     console.log("error");
   }
 }
-
 
 // stores array in local storage
 function storeData(array) {
