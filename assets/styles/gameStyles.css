@@ -17,6 +17,7 @@
 
 #opacity {
     background-color: rgba(227, 242, 234, 0.5);
+    overflow-y: auto;
 }
 
 .guess {
@@ -27,6 +28,10 @@
 .guess div {
     display: inline-block;
     align-items: center;
+}
+
+#guess-container {
+    
 }
 
 #guess-container h6 {
